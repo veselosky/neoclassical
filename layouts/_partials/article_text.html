@@ -1,24 +1,23 @@
 <article class="article-full"{{ if not .Params.outdated }} data-pagefind-body{{ end }}>
 <header class="article-header">
   <h1 class="article-title">{{ .Title }}</h1>
-  <p class="article-meta">{{ .Date.Format "January 2, 2006" }}</p>
+  <p class="article-meta"> {{ with .Date }}{{ .Format "January 2, 2006" }}{{ end }}</p>
 </header>
 {{- if .Params.series }}
     <section class="article-series-info mb-3">
     {{ partial "article_series.html" . }}
     </section>
 {{- end }}
-{{/*  Include a cover image if available (SVG resize is not supported) */}}
+{{/*  Include a cover image if available */}}
 {{- $page := . -}}
 {{- $img := partial "funcs/get_cover_image.html" . -}}
 {{- with $img }}
   {{- if eq $img.MediaType.SubType "svg" }}
+  {{/*  Most image methods are not available on SVGs */}}
     <p>
       <img class="img-fluid"
         src="{{ $img.RelPermalink }}"
-        alt="{{ $page.Params.alt }}"
-        style="max-width:960px;height:auto;"
-        width="960" />
+        alt="{{ $page.Params.alt }}" />
     </p>
   {{- else }}
     {{- $large := $img.Resize "960x" }}
