@@ -5,7 +5,7 @@
     {{- range . }}
     <li class="neo-sidebar-item">
       <a href="{{ .url }}" class="neo-sidebar-link" target="_blank" rel="noopener noreferrer">
-        {{ .name }}
+        {{ .title }}
       </a>
       {{- with .description }}
         <small class="neo-sidebar-description text-muted d-block">{{ . }}</small>
