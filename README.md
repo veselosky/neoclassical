@@ -21,7 +21,12 @@ Neoclassical is a Hugo theme that offers a modern take on the classic blog desig
 - RSS feeds for categories and tags as well as the main blog
 - Responsive design that looks great on all devices
 - Built with accessibility in mind
-- Supports dark mode
+- Supports dark mode (with automatic switching based on user preference)
+- Customizable Bootstrap 5 color scheme
 - Optional banner image in the header
 - Optional cover image for posts
-
+- Copyright notice and image credits in the footer
+- SEO sitemap generation
+- Open Graph and Twitter Card metadata for better social media sharing
+- Internationalization (i18n) support for multiple languages
+- PageFind integration for fast client-side search
