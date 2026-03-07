@@ -1,0 +1,17 @@
+{{- with .Site.Data.blogroll }}
+<div class="neo-sidebar-module neo-sidebar-blogroll">
+  <h3 class="neo-sidebar-title">{{ $.Site.Params.sidebar.blogroll.title | default "Blogroll" }}</h3>
+  <ul class="list-unstyled">
+    {{- range . }}
+    <li class="neo-sidebar-item">
+      <a href="{{ .url }}" class="neo-sidebar-link" target="_blank" rel="noopener noreferrer">
+        {{ .name }}
+      </a>
+      {{- with .description }}
+        <small class="neo-sidebar-description text-muted d-block">{{ . }}</small>
+      {{- end }}
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{- end }}

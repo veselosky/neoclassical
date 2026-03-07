@@ -16,21 +16,35 @@
       {{- $section := .CurrentSection }}
         <div class="col">
           <div class="card h-100 shadow-sm">
+            {{ $page := . }}
             {{- $cover := .Param "cover" | default "img/cover.jpg" }}
             {{- $img := or (.Resources.Get $cover) ($section.Resources.Get $cover) (resources.Get $cover) }}
-            {{- with $img.Fill "400x225 webp q60" }}
-              {{/* The image cap is purely decorative on control-escape and conveys no 
-                added info. It makes a large click target for sighted users, but is annoying
-                when navigating by keyboard since it's a duplicate link to the same article.
-                So we make it non-focusable and hidden from screen readers.
-              */}}
-              <a href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
-                <img class="img-fluid"
-                     src="{{ .RelPermalink }}"
-                     width="{{ .Width }}"
-                     height="{{ .Height }}"
-                     alt="" />
-                  </a>
+            {{- with $img }}
+              {{- if eq .MediaType.SubType "svg" }}
+                {{/* SVG: don't call image processing methods (Resize/Fill). */}}
+                <a href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
+                  <img class="img-fluid"
+                       src="{{ $img.RelPermalink }}"
+                       style="max-width:400px;height:auto;aspect-ratio:16/9;"
+                       width="400"
+                       height="225"
+                       alt="" />
+                </a>
+              {{- else }}
+                {{- $thumb := .Fill "400x225 webp q60" }}
+                {{/* The image cap is purely decorative on control-escape and conveys no 
+                  added info. It makes a large click target for sighted users, but is annoying
+                  when navigating by keyboard since it's a duplicate link to the same article.
+                  So we make it non-focusable and hidden from screen readers.
+                */}}
+                <a href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
+                  <img class="img-fluid"
+                       src="{{ $thumb.RelPermalink }}"
+                       width="{{ $thumb.Width }}"
+                       height="{{ $thumb.Height }}"
+                       alt="" />
+                </a>
+              {{- end }}
             {{- end }}
             <div class="card-body">
               <h3 class="card-title">

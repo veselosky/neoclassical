@@ -147,6 +147,12 @@
       </script>
     {{ end }}
 
+    {{- if .Site.Params.darkmode.enabled }}
+      {{- with resources.Get "js/darkmode.js" }}
+        <script>{{ .Content | safeJS }}</script>
+      {{- end }}
+    {{- end }}
+
     {{ block "extra_head" . -}}{{ end -}}
   </head>
   <body class="p-3 d-flex flex-column align-items-center justify-content-center" data-bs-theme="light">
@@ -156,32 +162,66 @@
         {{- partial (default "header.html" (.Param "header_template")) . }}
       </header>
     {{- end }}
-    <main id="main" role="main"
-      class="main d-flex flex-column align-items-center justify-content-center {{ default "container" (.Param "bootstrap_container_class") }}"
-      >
-    {{- block "precontent" . }}
-      <div class="precontent">
-        {{ partial (default "empty.html" (.Param "precontent_template")) . }}
-      </div>
-    {{- end }}
+    <div class="{{ default "container" (.Param "bootstrap_container_class") }}">
+      <div class="row">
+        <main id="main" role="main"
+          class="main d-flex flex-column {{ if .Site.Params.sidebar.enabled }}col-lg-8{{ else }}col-12{{ end }}"
+          >
+        {{- block "precontent" . }}
+          {{ partial (default "empty.html" (.Param "precontent_template")) . }}
+        {{- end }}
 
-    {{- block "content" . }}
-    {{- end }}
+        {{- block "content" . }}
+        {{- end }}
 
-    {{- block "postcontent" . }}
-      <div class="postcontent {{ default "container" (.Param "bootstrap_container_class") }}">
-        {{ partial (default "empty.html" (.Param "postcontent_template")) . }}
+        {{- block "postcontent" . }}
+          {{ partial (default "empty.html" (.Param "postcontent_template")) . }}
+        {{- end }}
+        </main>
+        {{- if .Site.Params.sidebar.enabled }}
+        <aside class="col-lg-4">
+          {{- partial "sidebar.html" . }}
+        </aside>
+        {{- end }}
       </div>
-    {{- end }}
-    </main>
+    </div>
 
     {{- block "footer" . }}
       <footer class="page_footer border-top {{ default "container" (.Param "bootstrap_container_class") }}">
         {{ partial (default "footer.html" (.Param "footer_template")) . }}
         {{ block "footer_credits" . }}
-          {{- $cover := .Param "cover" | default "img/cover.jpg" -}}
-          {{- with (index site.Data.imageMeta $cover) }}
-            <p class="image-credit mb-0"><small>Cover image: {{ .credit | safeHTML }}</small></p>
+          {{- with .Param "cover" }}
+            {{- with (index site.Data.imageMeta .) }}
+              <p class="image-credit mb-0"><small>Cover image: {{ .credit | safeHTML }}</small></p>
+            {{- end }}
+          {{- end }}
+          {{- $siteBanner := site.Params.banner -}}
+          {{- $pageBanner := .Params.banner -}}
+          {{- $bannerImage := "" -}}
+          {{- $bannerKey := "" -}}
+          {{- with $siteBanner -}}
+            {{- if reflect.IsMap . -}}
+              {{- $bannerImage = (index . "image") | default "" -}}
+              {{- $bannerKey = (index . "credit") | default "" -}}
+            {{- end -}}
+          {{- end -}}
+          {{- if ne $pageBanner false -}}
+            {{- with $pageBanner -}}
+              {{- if reflect.IsMap . -}}
+                {{- $bannerImage = (index . "image") | default $bannerImage -}}
+                {{- $bannerKey = (index . "credit") | default $bannerKey -}}
+              {{- else -}}
+                {{- $bannerImage = . -}}
+              {{- end -}}
+            {{- end -}}
+          {{- else -}}
+            {{- $bannerImage = "" -}}
+          {{- end -}}
+          {{- if and $bannerImage (eq $bannerKey "") -}}
+            {{- $bannerKey = $bannerImage -}}
+          {{- end -}}
+          {{- with (index site.Data.imageMeta $bannerKey) }}
+            <p class="image-credit mb-0"><small>Banner image: {{ .credit | safeHTML }}</small></p>
           {{- end }}
           {{- $buildDate := now }}
           <p class="build-status text-muted"><small>Site built on <time title="{{ $buildDate.Format "2006-01-02T15:04:05Z07:00" }}"

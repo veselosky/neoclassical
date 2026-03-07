@@ -8,17 +8,28 @@
     {{ partial "article_series.html" . }}
     </section>
 {{- end }}
-{{/*  Include a cover image if available  */}}
+{{/*  Include a cover image if available (SVG resize is not supported) */}}
+{{- $page := . -}}
 {{- $img := partial "funcs/get_cover_image.html" . -}}
 {{- with $img }}
-  {{- $large := $img.Resize "960x" }}
-  <p>
-    <img class="img-fluid"
-      src="{{ $large.RelPermalink }}"
-      alt="{{ .Params.alt }}"
-      height="{{ $large.Height }}"
-      width="{{ $large.Width }}" />
-  </p>
+  {{- if eq $img.MediaType.SubType "svg" }}
+    <p>
+      <img class="img-fluid"
+        src="{{ $img.RelPermalink }}"
+        alt="{{ $page.Params.alt }}"
+        style="max-width:960px;height:auto;"
+        width="960" />
+    </p>
+  {{- else }}
+    {{- $large := $img.Resize "960x" }}
+    <p>
+      <img class="img-fluid"
+        src="{{ $large.RelPermalink }}"
+        alt="{{ $page.Params.alt }}"
+        height="{{ $large.Height }}"
+        width="{{ $large.Width }}" />
+    </p>
+  {{- end }}
 {{- end }}
 {{ .Content }}
 {{- if .Params.series }}

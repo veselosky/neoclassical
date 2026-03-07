@@ -1,5 +1,100 @@
 baseURL: https://example.org/
 languageCode: en-us
-title: My New Hugo Project
+title: "Joey Blogs: Space Exploration Chronicles"
 themesDir: ../..
 theme: neoclassical
+
+pagination:
+  pagerSize: 5
+
+taxonomies:
+  tag: tags
+  category: categories
+  series: series
+
+params:
+  brand: Twenty Ten Mission Log
+  subtitle: Exploring the cosmos, one mission at a time
+  author: Joey Blogs
+  copyright: "Copyright 2026 Joey Blogs. All rights reserved."
+  date_format: "Jan 2, 2006"
+  banner:
+    image: img/banners/site-default.svg
+    alt: Earth and stars over mission control
+  
+  # Sidebar configuration
+  sidebar:
+    enabled: true
+    modules:
+      - name: search
+        enabled: true
+      - name: recent
+        enabled: true
+      - name: featured
+        enabled: true
+      - name: categories
+        enabled: true
+      - name: tagcloud
+        enabled: true
+      - name: archive
+        enabled: true
+      - name: social
+        enabled: true
+      - name: blogroll
+        enabled: true
+    
+    # Module-specific settings
+    recent_posts:
+      limit: 5
+    featured_posts:
+      title: Featured Articles
+      limit: 3
+    categories:
+      title: Categories
+    tagcloud:
+      title: Tag Cloud
+      min_font_size: 0.85
+      max_font_size: 1.8
+    search:
+      title: Search
+    archive:
+      title: Archive by Date
+    social:
+      title: Connect
+    blogroll:
+      title: Space Links
+  
+  # Social media links
+  social:
+    github: veselosky
+    twitter: vince
+    email: joey@example.org
+    rss: /index.xml
+  
+  # Dark mode configuration
+  darkmode:
+    enabled: true
+    label_light: Light theme
+    label_dark: Dark theme
+    label_auto: Auto theme
+
+menu:
+  main:
+    - name: Home
+      pageRef: /
+      weight: 10
+    - name: Articles
+      pageRef: /article
+      weight: 20
+    - name: News Briefs
+      pageRef: /news
+      weight: 30
+    - name: ESA Focus
+      pageRef: /article/esa-juice-jupiter
+      weight: 40
+    - name: Archives
+      pageRef: /archives
+      weight: 45
+    - name: Contact
+      pageRef: /contact
+      weight: 50

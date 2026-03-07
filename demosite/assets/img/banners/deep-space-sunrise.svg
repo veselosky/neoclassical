@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
+  <rect width="1600" height="420" fill="#080c1a"/>
+  <ellipse cx="780" cy="428" rx="980" ry="240" fill="#163358"/>
+  <circle cx="800" cy="300" r="90" fill="#ffd68a"/>
+  <text x="90" y="84" fill="#d9e7ff" font-family="Arial" font-size="42">Mission Briefing</text>
+</svg>

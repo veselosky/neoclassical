@@ -16,3 +16,9 @@ tip:
   other: "Tip"
 important:
   other: "Important"
+theme_light:
+  other: "Light theme"
+theme_dark:
+  other: "Dark theme"
+theme_auto:
+  other: "Auto theme"

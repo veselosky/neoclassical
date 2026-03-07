@@ -1,9 +1,49 @@
-<div class="d-flex flex-wrap justify-content-center py-2 mb-2 border-bottom">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-    <span class="fs-4">{{ .Site.Params.brand | default .Site.Title }}</span>
-  </a>
-  <div class="d-flex flex-wrap justify-content-center mb-3 mb-md-0">
-    {{ partial "menu.html" (dict "menuID" "main" "page" . "navClass" "nav-underline") }}
+{{- $banner := .Param "banner" -}}
+{{- $bannerImage := "" -}}
+{{- $bannerAlt := "" -}}
+{{- if ne $banner false -}}
+  {{- with $banner -}}
+    {{- if reflect.IsMap . -}}
+      {{- $bannerImage = (index . "image") | default "" -}}
+      {{- $bannerAlt = (index . "alt") | default "" -}}
+    {{- else -}}
+      {{- $bannerImage = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $bannerImage (eq $bannerAlt "") -}}
+  {{- $bannerAlt = printf "%s banner image" (.Site.Title | default "Site") -}}
+{{- end -}}
+
+<div class="neo-header mb-3">
+  <div class="neo-title-row border-bottom py-2">
+    <a href="/" class="neo-site-title link-body-emphasis text-decoration-none">
+      <span class="fs-2 fw-bold">{{ .Site.Params.brand | default .Site.Title }}</span>
+    </a>
+    <div class="neo-title-row-right d-flex align-items-center gap-2">
+      {{- partial "theme_toggle.html" . }}
+      {{- with .Site.Params.subtitle }}
+        <p class="neo-site-subtitle fst-italic mb-0">{{ . }}</p>
+      {{- end }}
+    </div>
   </div>
+
+  {{- if $bannerImage }}
+    <div class="neo-banner-wrap">
+      <img
+        src="{{ $bannerImage | relURL }}"
+        class="neo-banner-image img-fluid"
+        alt="{{ $bannerAlt }}"
+      />
+      <div class="neo-menu-row neo-menu-row-banner">
+        {{ partial "menu.html" (dict "menuID" "main" "page" . "navClass" "neo-menu-list justify-content-start flex-wrap") }}
+      </div>
+    </div>
+  {{- else }}
+    <div class="neo-menu-row border-top border-bottom">
+      {{ partial "menu.html" (dict "menuID" "main" "page" . "navClass" "neo-menu-list justify-content-start flex-wrap") }}
+    </div>
+  {{- end }}
+
+  <div id="search" class="neo-search mt-3"></div>
 </div>
-<div id="search"></div>

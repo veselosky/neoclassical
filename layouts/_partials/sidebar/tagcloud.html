@@ -1,0 +1,25 @@
+{{- $tags := .Site.Taxonomies.tags }}
+{{- if gt (len $tags) 0 }}
+  {{- $maxCount := 0 }}
+  {{- $minCount := 999999 }}
+  {{- range $tags }}
+    {{- if gt .Count $maxCount }}{{ $maxCount = .Count }}{{ end }}
+    {{- if lt .Count $minCount }}{{ $minCount = .Count }}{{ end }}
+  {{- end }}
+  {{- $countRange := sub $maxCount $minCount }}
+  {{- if eq $countRange 0 }}{{ $countRange = 1 }}{{ end }}
+<div class="neo-sidebar-module neo-sidebar-tagcloud">
+  <h3 class="neo-sidebar-title">{{ .Site.Params.sidebar.tagcloud.title | default "Tags" }}</h3>
+  <div class="neo-tagcloud">
+    {{- range $tags.Alphabetical }}
+      {{- $weight := div (mul (sub .Count $minCount) 4) $countRange }}
+      {{- $sizeClass := printf "neo-tag-size-%d" (add $weight 1) }}
+    <a href="{{ .Page.RelPermalink }}" 
+       class="neo-tag-link {{ $sizeClass }}"
+       title="{{ .Page.Title }} ({{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }})">
+      {{ .Page.Title }}
+    </a>
+    {{- end }}
+  </div>
+</div>
+{{- end }}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
+  <rect width="1600" height="420" fill="#130f25"/>
+  <circle cx="320" cy="220" r="150" fill="#cf9f71"/>
+  <circle cx="1180" cy="120" r="60" fill="#c8d9ff"/>
+  <path d="M60 320 C360 250 620 360 980 290 C1190 250 1380 290 1540 255" stroke="#f0f2ff" stroke-width="6" fill="none"/>
+  <text x="76" y="82" fill="#f0f2ff" font-family="Arial" font-size="40">Jupiter Mission Route</text>
+</svg>

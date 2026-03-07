@@ -1,0 +1,24 @@
+Recent Articles:
+  other: "Articles récents"
+Continue reading:
+  other: "Continuer la lecture"
+part_of_the_series:
+  other: "Partie de la série : {{ .Series }}"
+no_articles_found:
+  other: "Aucun article trouvé."
+caution:
+  other: "Attention"
+warning:
+  other: "Avertissement"
+note:
+  other: "Remarque"
+tip:
+  other: "Conseil"
+important:
+  other: "Important"
+theme_light:
+  other: "Thème clair"
+theme_dark:
+  other: "Thème sombre"
+theme_auto:
+  other: "Thème automatique"

@@ -37,3 +37,393 @@ article{
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
+
+.neo-header {
+  width: 100%;
+}
+
+.neo-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.neo-site-title {
+  line-height: 1.1;
+}
+
+.neo-site-subtitle {
+  color: var(--bs-secondary-color);
+  text-align: right;
+}
+
+.neo-banner-wrap {
+  position: relative;
+  margin-top: 0.75rem;
+}
+
+.neo-banner-image {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border: 1px solid var(--bs-border-color);
+}
+
+.neo-menu-row {
+  background: var(--bs-body-bg);
+  padding: 0.35rem 0.6rem;
+}
+
+.neo-menu-row-banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.88);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.neo-menu-row-banner .nav-link {
+  color: #f5f5f5;
+}
+
+.neo-menu-row-banner .nav-link.active,
+.neo-menu-row-banner .nav-link:hover,
+.neo-menu-row-banner .nav-link:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.neo-menu-list {
+  gap: 0.2rem;
+}
+
+.neo-menu-list .nav-link {
+  padding: 0.2rem 0.45rem;
+}
+
+@media (max-width: 767.98px) {
+  .neo-title-row {
+    justify-content: center;
+  }
+
+  .neo-site-subtitle {
+    text-align: left;
+    width: 100%;
+  }
+
+  .neo-banner-image {
+    max-height: 240px;
+  }
+
+  .neo-menu-row-banner {
+    position: static;
+    border-top: 0;
+  }
+}
+
+/* Sidebar styles */
+.neo-sidebar {
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding-left: 1rem;
+}
+
+.neo-sidebar-module {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--bs-secondary-bg);
+  border-radius: 0.375rem;
+}
+
+.neo-sidebar-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bs-border-color);
+}
+
+.neo-sidebar-item {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.neo-sidebar-link {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  display: block;
+}
+
+.neo-sidebar-link:hover,
+.neo-sidebar-link:focus {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
+}
+
+.neo-sidebar-date {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.neo-sidebar-description {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.neo-sidebar-count {
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+}
+
+/* Tag cloud styles */
+.neo-tagcloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  line-height: 1.8;
+}
+
+.neo-tag-link {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  transition: all 0.2s ease;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+}
+
+.neo-tag-link:hover,
+.neo-tag-link:focus {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+  text-decoration: none;
+}
+
+.neo-tag-size-1 {
+  font-size: 0.85rem;
+}
+
+.neo-tag-size-2 {
+  font-size: 1rem;
+}
+
+.neo-tag-size-3 {
+  font-size: 1.15rem;
+}
+
+.neo-tag-size-4 {
+  font-size: 1.3rem;
+}
+
+.neo-tag-size-5 {
+  font-size: 1.45rem;
+}
+
+/* Social links */
+.neo-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.neo-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Archive accordion */
+.neo-sidebar-archive details {
+  margin-bottom: 0.5rem;
+}
+
+.neo-sidebar-archive summary {
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.25rem;
+  user-select: none;
+  list-style: none;
+}
+
+.neo-sidebar-archive summary::-webkit-details-marker {
+  display: none;
+}
+
+.neo-sidebar-archive summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+  font-size: 0.7rem;
+}
+
+.neo-sidebar-archive details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.neo-sidebar-archive summary:hover,
+.neo-sidebar-archive summary:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.neo-sidebar-item-small {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.neo-sidebar-link-small {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  display: block;
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.25rem;
+}
+
+.neo-sidebar-link-small:hover,
+.neo-sidebar-link-small:focus {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+  text-decoration: none;
+}
+
+.neo-sidebar-count-small {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+/* Responsive sidebar */
+@media (max-width: 991.98px) {
+  .neo-sidebar {
+    position: static;
+    max-height: none;
+    padding-left: 0;
+    margin-top: 2rem;
+  }
+}
+
+/* Theme toggle button */
+.neo-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.neo-theme-toggle-btn {
+  border: 1px solid var(--bs-border-color);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2rem;
+}
+
+.neo-theme-toggle-btn:hover,
+.neo-theme-toggle-btn:focus {
+  background-color: var(--bs-secondary-bg);
+  border-color: var(--bs-emphasis-color);
+}
+
+.neo-theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--bs-link-color);
+  outline-offset: 2px;
+}
+
+.neo-theme-icon {
+  display: none;
+  transition: transform 0.2s ease;
+}
+
+/* Show appropriate icon based on current theme state */
+.neo-theme-toggle-btn.theme-light .neo-theme-icon-light,
+.neo-theme-toggle-btn.theme-dark .neo-theme-icon-dark,
+.neo-theme-toggle-btn.theme-auto .neo-theme-icon-auto {
+  display: block;
+}
+
+.neo-theme-toggle-btn:hover .neo-theme-icon {
+  transform: scale(1.1);
+}
+
+/* Adjust title row layout for theme toggle */
+.neo-title-row-right {
+  margin-left: auto;
+}
+
+@media (max-width: 767.98px) {
+  .neo-title-row-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+  
+  .neo-theme-toggle {
+    order: -1;
+  }
+}
+
+/* Dark mode color adjustments for better contrast */
+[data-bs-theme="dark"] .neo-banner-image {
+  opacity: 0.92;
+}
+
+[data-bs-theme="dark"] .neo-menu-row-banner {
+  background: rgba(0, 0, 0, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+[data-bs-theme="dark"] .neo-sidebar-module {
+  background-color: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+}
+
+/* Archives page */
+.neo-archive-year {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.4rem;
+  background: var(--bs-body-bg);
+}
+
+.neo-archive-year-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+}
+
+.neo-archive-year-summary:hover,
+.neo-archive-year-summary:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.neo-archive-months {
+  padding: 0 0.8rem 0.8rem;
+}
+
+.neo-archive-month {
+  border-left: 2px solid var(--bs-border-color);
+  padding-left: 0.8rem;
+}
+
+.neo-archive-entry a {
+  text-decoration: none;
+}
+
+.neo-archive-entry a:hover,
+.neo-archive-entry a:focus {
+  text-decoration: underline;
+}

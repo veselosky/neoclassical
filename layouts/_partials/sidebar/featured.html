@@ -1,0 +1,17 @@
+{{- $pages := where .Site.RegularPages "Params.featured" true }}
+{{- $limit := .Site.Params.sidebar.featured_posts.limit | default 5 }}
+{{- $pages = first $limit $pages }}
+{{- if gt (len $pages) 0 }}
+<div class="neo-sidebar-module neo-sidebar-featured">
+  <h3 class="neo-sidebar-title">{{ .Site.Params.sidebar.featured_posts.title | default "Featured" }}</h3>
+  <ul class="list-unstyled">
+    {{- range $pages }}
+    <li class="neo-sidebar-item">
+      <a href="{{ .RelPermalink }}" class="neo-sidebar-link">
+        {{ .Title }}
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{- end }}
