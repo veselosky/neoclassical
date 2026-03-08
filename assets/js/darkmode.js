@@ -71,9 +71,9 @@
     applyTheme(effectiveTheme);
     setStoredTheme(preference);
     
-    // Update toggle button state if available
+    // Update toggle button state if available (defined in theme_toggle partial)
     if (typeof updateThemeToggle === 'function') {
-      updateThemeToggle(preference, effectiveTheme);
+      updateThemeToggle(preference);
     }
   }
   
