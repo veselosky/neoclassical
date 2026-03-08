@@ -38,6 +38,28 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
+/* Fixups for Bootstrap and PageFind */
+/* Bootstrap does not adjust focus styles for nav links in dark mode. That results in
+very poor visibility of the focus indicator. To fix this, we add a custom outline style
+for nav links when in dark mode to achieve good contrast.
+ */
+[data-bs-theme="dark"] .nav-link:focus-visible {
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+/* Try to keep focus outline consistent everywhere */
+*:focus-visible {
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+/* PageFind hides the "clear" button on the search input visually, but it's still
+focusable. We need to make it visible when focused for accessibility. */
+.neo-sidebar .pagefind-ui__suppressed:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+
 .neo-header {
   width: 100%;
 }
@@ -69,7 +91,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   max-height: 360px;
   object-fit: cover;
-  border: 1px solid var(--bs-border-color);
 }
 
 .neo-menu-row {
@@ -82,20 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.88);
   border-top: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.neo-menu-row-banner .nav-link {
-  color: #f5f5f5;
-}
-
-.neo-menu-row-banner .nav-link.active,
-.neo-menu-row-banner .nav-link:hover,
-.neo-menu-row-banner .nav-link:focus-visible {
-  color: #ffffff;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
 }
 
 .neo-menu-list {
@@ -138,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 .neo-sidebar-module {
   margin-bottom: 2rem;
   padding: 1rem;
-  background-color: var(--bs-secondary-bg);
+  border: 2px solid var(--bs-secondary-bg);
   border-radius: 0.375rem;
 }
 
@@ -344,10 +352,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     justify-content: space-between;
     margin-top: 0.5rem;
-  }
-  
-  .neo-theme-toggle {
-    order: -1;
   }
 }
 

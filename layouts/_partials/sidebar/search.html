@@ -1,15 +1,4 @@
 <div class="neo-sidebar-module neo-sidebar-search">
   <h3 class="neo-sidebar-title">{{ .Site.Params.sidebar.search.title | default "Search" }}</h3>
-  <div id="sidebar-search"></div>
-  <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-      if (typeof PagefindUI !== 'undefined') {
-        new PagefindUI({ 
-          element: "#sidebar-search", 
-          showSubResults: true,
-          showImages: false
-        });
-      }
-    });
-  </script>
+  <div id="search"></div>
 </div>
