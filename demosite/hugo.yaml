@@ -21,7 +21,11 @@ params:
   banner:
     image: img/banners/site-default.svg
     alt: Earth and stars over mission control
-  
+  home:
+    featured_posts:
+      limit: 6
+    recent_posts:
+      limit: 5
   # Sidebar configuration
   sidebar:
     enabled: true
