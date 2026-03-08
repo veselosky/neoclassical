@@ -21,10 +21,10 @@
       <span class="fs-2 fw-bold">{{ .Site.Params.brand | default .Site.Title }}</span>
     </a>
     <div class="neo-title-row-right d-flex align-items-center gap-2">
-      {{- partial "theme_toggle.html" . }}
       {{- with .Site.Params.subtitle }}
         <p class="neo-site-subtitle fst-italic mb-0">{{ . }}</p>
       {{- end }}
+      {{- partial "theme_toggle.html" . }}
     </div>
   </div>
 
