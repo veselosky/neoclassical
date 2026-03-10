@@ -1,6 +1,5 @@
-{{- if .Site.Params.sidebar.enabled }}
 <aside class="neo-sidebar" role="complementary" aria-label="Sidebar">
-  {{- $modules := .Site.Params.sidebar.modules }}
+  {{- $modules := .Param "sidebar.modules" }}
   {{- range $modules }}
     {{- if .enabled }}
       {{- $template := printf "sidebar/%s.html" .name }}
@@ -8,4 +7,3 @@
     {{- end }}
   {{- end }}
 </aside>
-{{- end }}

@@ -165,7 +165,7 @@
     <div class="{{ default "container" (.Param "bootstrap_container_class") }}">
       <div class="row">
         <main id="main" role="main"
-          class="main d-flex flex-column {{ if .Site.Params.sidebar.enabled }}col-lg-8{{ else }}col-12{{ end }}"
+          class="main d-flex flex-column {{ if .Param "sidebar.enabled" }}col-lg-8{{ else }}col-12{{ end }}"
           >
         {{- block "precontent" . }}
           {{ partial (default "empty.html" (.Param "precontent_template")) . }}
@@ -178,7 +178,7 @@
           {{ partial (default "empty.html" (.Param "postcontent_template")) . }}
         {{- end }}
         </main>
-        {{- if .Site.Params.sidebar.enabled }}
+        {{- if .Param "sidebar.enabled" }}
         <aside class="col-lg-4">
           {{- partial "sidebar.html" . }}
         </aside>
@@ -195,16 +195,9 @@
               <p class="image-credit mb-0"><small>Cover image: {{ .credit | safeHTML }}</small></p>
             {{- end }}
           {{- end }}
-          {{- $siteBanner := site.Params.banner -}}
-          {{- $pageBanner := .Params.banner -}}
+          {{- $pageBanner := .Param "banner" -}}
           {{- $bannerImage := "" -}}
           {{- $bannerKey := "" -}}
-          {{- with $siteBanner -}}
-            {{- if reflect.IsMap . -}}
-              {{- $bannerImage = (index . "image") | default "" -}}
-              {{- $bannerKey = (index . "credit") | default "" -}}
-            {{- end -}}
-          {{- end -}}
           {{- if ne $pageBanner false -}}
             {{- with $pageBanner -}}
               {{- if reflect.IsMap . -}}
