@@ -26,15 +26,15 @@
   </blockquote>
 {{- else if (or .Attributes.caption .Attributes.cite) }}
 <figure>
-  <blockquote class="blockquote"{{ with .Attributes.citeUrl }} cite="{{ . |safeURL }}"{{ end }}>
+  <blockquote class="blockquote">
     {{ .Text }}
   </blockquote>
   <figcaption class="blockquote-footer">
-    &mdash; {{ with .Attributes.caption }}
+    {{ with .Attributes.caption }}
       {{- . }}
     {{- end }} 
     {{- with .Attributes.cite -}}
-      <cite>{{ . }}</cite>
+      , <cite>{{ . }}</cite>
     {{- end }}
   </figcaption>
 </figure>
