@@ -4,10 +4,10 @@
 {{- if ne $banner false -}}
   {{- with $banner -}}
     {{- if reflect.IsMap . -}}
-      {{- $bannerImage = (index . "image") | default "" -}}
+      {{- $bannerImage = or (.Resources.Get (index . "image")) (resources.Get (index . "image")) -}}
       {{- $bannerAlt = (index . "alt") | default "" -}}
     {{- else -}}
-      {{- $bannerImage = . -}}
+      {{- $bannerImage = or (.Resources.Get .) (resources.Get .) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -31,7 +31,7 @@
   {{- if $bannerImage }}
     <div class="neo-banner-wrap">
       <img
-        src="{{ $bannerImage | relURL }}"
+        src="{{ $bannerImage.RelPermalink }}"
         class="neo-banner-image img-fluid"
         alt="{{ $bannerAlt }}"
       />
