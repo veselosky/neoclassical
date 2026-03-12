@@ -9,5 +9,5 @@ features = ["posts", "shortcodes", "related content", "comments"]
 min_version = "0.146.0"
 
 authors = [
-  {name = "Vince Veselosky", homepage = "https://vince.veselosky.me"}
+  {name = "Vince Veselosky", homepage = "https://www.control-escape.com"}
 ]
