@@ -1,12 +1,12 @@
 {{ define "content" }}
-  {{- $all := (where .Site.RegularPages "Type" "article").ByDate -}}
+  {{- $all := (where .Site.RegularPages "Type" "article").ByDate.Reverse -}}
 
   {{- /* Featured Articles section */ -}}
   {{- $featLimit := default 6 .Site.Params.home.featured_posts.limit -}}
   {{- if gt $featLimit 0 }}
     {{- $featTitleKey := default "Featured Articles" .Site.Params.home.featured_posts.title -}}
     <h2 class="border-bottom">{{ i18n $featTitleKey }}</h2>
-    {{- $featuredAll := (where (where .Site.RegularPages "Type" "article") "Params.featured" true).ByDate -}}
+    {{- $featuredAll := (where (where .Site.RegularPages "Type" "article") "Params.featured" true).ByDate.Reverse -}}
     {{- $featured := first $featLimit $featuredAll -}}
     {{- partial "article_list_album.html" $featured -}}
   {{- end }}
