@@ -25,7 +25,9 @@
       {{ with resources.Get "css/generic.css" | resources.Minify | resources.Fingerprint -}}
         <link rel="stylesheet" href="{{ .Permalink }}" />
       {{ end -}}
-      <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+      {{ if .Site.Params.usePagefind }}
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+      {{ end }}
       <style>
         /* Atkinson Hyperlegible Next for body text */
         @font-face {
@@ -139,12 +141,16 @@
       {{- end }}
     {{ end }}
     {{ block "pagefind_js" . }}
-      <script src="/pagefind/pagefind-ui.js" defer></script>
-      <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
-        });
-      </script>
+      {{- if .Site.Params.usePagefind }}
+        <script src="/pagefind/pagefind-ui.js" defer></script>
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+            if (typeof PagefindUI !== 'undefined') {
+              new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+            }
+          });
+        </script>
+      {{- end }}
     {{ end }}
 
     {{- if .Site.Params.darkmode.enabled }}
