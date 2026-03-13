@@ -1,9 +1,9 @@
 name = "Neoclassical Hugo Theme"
-license = "APACHE-2.0"
+license = "Apache-2.0"
 licenselink = "https://github.com/veselosky/neoclassical/blob/main/LICENSE.md"
 description = "A Base theme for building full featured Hugo sites"
 homepage = "https://github.com/veselosky/neoclassical"
-demosite = "https://github.com/veselosky/neoclassical/TODO"
+# demosite = "https://github.com/veselosky/neoclassical/TODO"
 tags = ["website", "starter", "responsive", "Disqus", "blog", "Multilingual"]
 features = ["posts", "shortcodes", "related content", "comments"]
 min_version = "0.146.0"
