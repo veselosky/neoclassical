@@ -1,0 +1,62 @@
+{{ define "precontent" }}
+  <div class="precontent">
+    {{- partial "article_text.html" . }}
+  </div>
+{{ end }}
+
+{{ define "content" }}
+  {{- $pages := where .Site.RegularPages "Params.outdated" "ne" true -}}
+  {{- $pages = where $pages "Type" "in" (slice "article" "news") -}}
+  {{- $pages = sort $pages "Date" "desc" -}}
+
+  {{- if eq (len $pages) 0 }}
+    <p>{{ i18n "no_articles_found" }}</p>
+  {{- else }}
+    <section class="neo-archives w-100" aria-labelledby="archives-title">
+      <h2 id="archives-title" class="border-bottom pb-2">{{ .Title }}</h2>
+
+      {{- $years := slice -}}
+      {{- range $pages -}}
+        {{- $year := .Date.Format "2006" -}}
+        {{- if not (in $years $year) -}}
+          {{- $years = $years | append $year -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $years = sort $years "value" "desc" -}}
+
+      {{- range $yearIndex, $year := $years }}
+        {{- $yearPages := where $pages "Date.Year" (int $year) -}}
+        {{- $yearCount := len $yearPages -}}
+        <details class="neo-archive-year mb-3" {{ if eq $yearIndex 0 }}open{{ end }}>
+          <summary id="archive-{{ $year }}" class="neo-archive-year-summary">
+            <span>{{ $year }}</span>
+            <span class="badge text-bg-secondary">{{ $yearCount }}</span>
+          </summary>
+
+          <div class="neo-archive-months pt-2">
+            {{- range (seq 1 12) }}
+              {{- $month := sub 13 . -}}
+              {{- $monthPages := where $yearPages "Date.Month" $month -}}
+              {{- if gt (len $monthPages) 0 -}}
+                {{- $monthName := (time (printf "%s-%02d-01" $year $month)).Format "January" -}}
+                <section id="archive-{{ $year }}-{{ printf "%02d" $month }}" class="neo-archive-month mb-3">
+                  <h3 class="h5 mb-2">{{ $monthName }} <span class="text-muted">({{ len $monthPages }})</span></h3>
+                  <ul class="list-unstyled mb-0">
+                    {{- range $monthPages }}
+                      <li class="neo-archive-entry mb-2">
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        <small class="text-muted ms-2">
+                          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format (.Site.Params.date_format | default "Jan 2, 2006") }}</time>
+                        </small>
+                      </li>
+                    {{- end }}
+                  </ul>
+                </section>
+              {{- end -}}
+            {{- end }}
+          </div>
+        </details>
+      {{- end }}
+    </section>
+  {{- end }}
+{{ end }}

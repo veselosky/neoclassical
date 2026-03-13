@@ -1,0 +1,47 @@
+{{- $banner := .Param "banner" -}}
+{{- $bannerImage := "" -}}
+{{- $bannerAlt := "" -}}
+{{- if ne $banner false -}}
+  {{- with $banner -}}
+    {{- if reflect.IsMap . -}}
+      {{- $bannerImage = or ($.Resources.Get (index . "image")) (resources.Get (index . "image")) -}}
+      {{- $bannerAlt = (index . "alt") | default "" -}}
+    {{- else -}}
+      {{- $bannerImage = or ($.Resources.Get .) (resources.Get .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $bannerImage (eq $bannerAlt "") -}}
+  {{- $bannerAlt = printf "%s banner image" (.Site.Title | default "Site") -}}
+{{- end -}}
+
+<div class="neo-header mb-3">
+  <div class="neo-title-row border-bottom py-2">
+    <a href="{{ .Site.Home.RelPermalink }}" class="neo-site-title link-body-emphasis text-decoration-none">
+      <span class="fs-2 fw-bold">{{ .Site.Params.brand | default .Site.Title }}</span>
+    </a>
+    <div class="neo-title-row-right d-flex align-items-center gap-2">
+      {{- with .Site.Params.subtitle }}
+        <p class="neo-site-subtitle fst-italic mb-0">{{ . }}</p>
+      {{- end }}
+      {{- partial "theme_toggle.html" . }}
+    </div>
+  </div>
+
+  {{- if $bannerImage }}
+    <div class="neo-banner-wrap">
+      <img
+        src="{{ $bannerImage.RelPermalink }}"
+        class="neo-banner-image img-fluid"
+        alt="{{ $bannerAlt }}"
+      />
+      <div class="neo-menu-row neo-menu-row-banner" data-bs-theme="dark">
+        {{ partial "menu.html" (dict "menuID" "main" "page" . "navClass" "neo-menu-list justify-content-start flex-wrap") }}
+      </div>
+    </div>
+  {{- else }}
+    <div class="neo-menu-row border-top border-bottom">
+      {{ partial "menu.html" (dict "menuID" "main" "page" . "navClass" "neo-menu-list justify-content-start flex-wrap") }}
+    </div>
+  {{- end }}
+</div>

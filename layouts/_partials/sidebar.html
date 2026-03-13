@@ -1,0 +1,9 @@
+<aside class="neo-sidebar" role="complementary" aria-label="Sidebar">
+  {{- $modules := .Param "sidebar.modules" }}
+  {{- range $modules }}
+    {{- if .enabled }}
+      {{- $template := printf "sidebar/%s.html" .name }}
+      {{- partial $template $ }}
+    {{- end }}
+  {{- end }}
+</aside>

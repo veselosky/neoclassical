@@ -1,0 +1,6 @@
+{
+    "djlint.showInstallError": false,
+    "chat.tools.terminal.autoApprove": {
+        "hugo": true
+    }
+}

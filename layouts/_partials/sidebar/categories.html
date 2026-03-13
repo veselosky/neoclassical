@@ -1,0 +1,16 @@
+{{- $categories := .Site.Taxonomies.categories }}
+{{- if gt (len $categories) 0 }}
+<div class="neo-sidebar-module neo-sidebar-categories">
+  <h3 class="neo-sidebar-title">{{ .Site.Params.sidebar.categories.title | default "Categories" }}</h3>
+  <ul class="list-unstyled">
+    {{- range $categories.ByCount }}
+    <li class="neo-sidebar-item">
+      <a href="{{ .Page.RelPermalink }}" class="neo-sidebar-link">
+        {{ .Page.Title }}
+        <span class="neo-sidebar-count badge text-bg-secondary">{{ .Count }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{- end }}

@@ -1,0 +1,19 @@
+{{- $limit := .Site.Params.sidebar.recent_posts.limit | default 5 }}
+{{- $pages := first $limit (where .Site.RegularPages "Type" "article") }}
+{{- if gt (len $pages) 0 }}
+<div class="neo-sidebar-module neo-sidebar-recent">
+  <h3 class="neo-sidebar-title">{{ i18n "Recent Articles" }}</h3>
+  <ul class="list-unstyled">
+    {{- range $pages }}
+    <li class="neo-sidebar-item">
+      <a href="{{ .RelPermalink }}" class="neo-sidebar-link">
+        {{ .Title }}
+      </a>
+      <time class="neo-sidebar-date text-muted" datetime="{{ .Date.Format "2006-01-02" }}">
+        {{ .Date | time.Format (.Site.Params.date_format | default "Jan 2, 2006") }}
+      </time>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{- end }}

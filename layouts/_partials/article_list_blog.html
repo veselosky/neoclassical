@@ -1,0 +1,19 @@
+<div class="article-list">
+  {{ range . }}
+    <article class="article-preview">
+      <h3 class="article-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+      <p class="article-meta">
+        {{ .Date | time.Format "2006-01-02" -}}
+      </p>
+      <div class="article-excerpt">{{ .Summary}}</div>
+      {{ if .Truncated }}
+        <p>
+          <a href="{{ .RelPermalink }}">{{ i18n "Continue reading" }}</a>
+        </p>
+      {{ end }}
+    </article><!-- /.article-preview -->
+  {{ end }}
+</div>
+<!-- Pagination partial would be included in the parent template in Hugo, not here. -->

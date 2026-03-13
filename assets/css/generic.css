@@ -1,0 +1,410 @@
+/* article_list_album.html
+To prevent huge blocks of trailing whitespace in cards, we limit output to 4
+lines, at which text will be truncated with an ellipsis. (This isn't much of a problem
+at normal font sizes, but when users increase font size for accessibility, it can
+become an issue.)
+
+Height calculations for the P tags are based on number of lines of text
+we want displayed (1em * line height for each line). We take advantage of the
+CSS vars set by Bootstrap 5.2+.
+
+As of 2025-10-25 line-clamp is not well supported, but curiously the -webkit- version
+works in all major browsers (when paired with display: -webkit-box and
+-webkit-box-orient: vertical;).  ¯\_(ツ)_/¯
+See also this hack: https://css-tricks.com/line-clampin/
+*/
+.album .card-body p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  height: calc(4em * var(--bs-body-line-height));
+  overflow: hidden;
+  position: relative;
+}
+.album .card {
+  max-width: 400px;
+}
+/* Article
+For readability, line length for text blocks should be restricted to ~80 chars.
+https://baymard.com/blog/line-length-readability
+*/
+article{
+  max-width: 72ch;
+}
+
+/* Use balanced wrapping for headlines */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* Fixups for Bootstrap and PageFind */
+/* Bootstrap does not adjust focus styles for nav links in dark mode. That results in
+very poor visibility of the focus indicator. To fix this, we add a custom outline style
+for nav links when in dark mode to achieve good contrast.
+ */
+[data-bs-theme="dark"] .nav-link:focus-visible {
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+/* Try to keep focus outline consistent everywhere */
+*:focus-visible {
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+/* PageFind hides the "clear" button on the search input visually, but it's still
+focusable. We need to make it visible when focused for accessibility. */
+.neo-sidebar .pagefind-ui__suppressed:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--bs-link-hover-color);
+  outline-offset: 2px;
+}
+
+.neo-header {
+  width: 100%;
+}
+
+.neo-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.neo-site-title {
+  line-height: 1.1;
+}
+
+.neo-site-subtitle {
+  color: var(--bs-secondary-color);
+  text-align: right;
+}
+
+.neo-banner-wrap {
+  position: relative;
+  margin-top: 0.75rem;
+}
+
+.neo-banner-image {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+}
+
+.neo-menu-row {
+  background: var(--bs-body-bg);
+  padding: 0.35rem 0.6rem;
+}
+
+.neo-menu-row-banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.neo-menu-list {
+  gap: 0.2rem;
+}
+
+.neo-menu-list .nav-link {
+  padding: 0.2rem 0.45rem;
+}
+
+@media (max-width: 767.98px) {
+  .neo-title-row {
+    justify-content: center;
+  }
+
+  .neo-site-subtitle {
+    text-align: left;
+    width: 100%;
+  }
+
+  .neo-banner-image {
+    max-height: 240px;
+  }
+
+  .neo-menu-row-banner {
+    position: static;
+    border-top: 0;
+  }
+}
+
+/* Sidebar styles */
+.neo-sidebar {
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding-left: 1rem;
+}
+
+.neo-sidebar-module {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 2px solid var(--bs-secondary-bg);
+  border-radius: 0.375rem;
+}
+
+.neo-sidebar-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bs-border-color);
+}
+
+.neo-sidebar-item {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.neo-sidebar-link {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  display: block;
+}
+
+.neo-sidebar-link:hover,
+.neo-sidebar-link:focus {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
+}
+
+.neo-sidebar-date {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.neo-sidebar-description {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.neo-sidebar-count {
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+}
+
+/* Tag cloud styles */
+.neo-tagcloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  line-height: 1.8;
+}
+
+.neo-tag-link {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  transition: all 0.2s ease;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+}
+
+.neo-tag-link:hover,
+.neo-tag-link:focus {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+  text-decoration: none;
+}
+
+.neo-tag-size-1 {
+  font-size: 0.85rem;
+}
+
+.neo-tag-size-2 {
+  font-size: 1rem;
+}
+
+.neo-tag-size-3 {
+  font-size: 1.15rem;
+}
+
+.neo-tag-size-4 {
+  font-size: 1.3rem;
+}
+
+.neo-tag-size-5 {
+  font-size: 1.45rem;
+}
+
+/* Social links */
+.neo-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.neo-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Archive accordion */
+.neo-sidebar-archive details {
+  margin-bottom: 0.5rem;
+}
+
+.neo-sidebar-archive summary {
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.25rem;
+  user-select: none;
+  list-style: none;
+}
+
+.neo-sidebar-archive summary::-webkit-details-marker {
+  display: none;
+}
+
+.neo-sidebar-archive summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+  font-size: 0.7rem;
+}
+
+.neo-sidebar-archive details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.neo-sidebar-archive summary:hover,
+.neo-sidebar-archive summary:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.neo-sidebar-item-small {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.neo-sidebar-link-small {
+  text-decoration: none;
+  color: var(--bs-link-color);
+  display: block;
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.25rem;
+}
+
+.neo-sidebar-link-small:hover,
+.neo-sidebar-link-small:focus {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-tertiary-bg);
+  text-decoration: none;
+}
+
+.neo-sidebar-count-small {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+/* Responsive sidebar */
+@media (max-width: 991.98px) {
+  .neo-sidebar {
+    position: static;
+    max-height: none;
+    padding-left: 0;
+    margin-top: 2rem;
+  }
+}
+
+/* Theme toggle group (btn-group radios) */
+.neo-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.neo-theme-btn {
+  min-width: 2.5rem;
+  min-height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.neo-theme-btn:focus-visible {
+  outline: 2px solid var(--bs-link-color);
+  outline-offset: 2px;
+}
+
+.neo-theme-icon {
+  width: 1em;
+  height: 1em;
+}
+
+/* Adjust title row layout for theme toggle */
+.neo-title-row-right {
+  margin-left: auto;
+}
+
+@media (max-width: 767.98px) {
+  .neo-title-row-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Dark mode color adjustments for better contrast */
+[data-bs-theme="dark"] .neo-banner-image {
+  opacity: 0.92;
+}
+
+[data-bs-theme="dark"] .neo-menu-row-banner {
+  background: rgba(0, 0, 0, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+[data-bs-theme="dark"] .neo-sidebar-module {
+  background-color: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+}
+
+/* Archives page */
+.neo-archive-year {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.4rem;
+  background: var(--bs-body-bg);
+}
+
+.neo-archive-year-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+}
+
+.neo-archive-year-summary:hover,
+.neo-archive-year-summary:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.neo-archive-months {
+  padding: 0 0.8rem 0.8rem;
+}
+
+.neo-archive-month {
+  border-left: 2px solid var(--bs-border-color);
+  padding-left: 0.8rem;
+}
+
+.neo-archive-entry a {
+  text-decoration: none;
+}
+
+.neo-archive-entry a:hover,
+.neo-archive-entry a:focus {
+  text-decoration: underline;
+}

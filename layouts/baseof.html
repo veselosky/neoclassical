@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {{- block "title" . -}}
+        {{- with .Params.seo_title -}}
+          {{- . -}}
+        {{- else with .Title -}}
+          {{- . -}}
+        {{- else -}}
+          {{- .Site.Title -}}
+        {{- end -}}
+      {{- end -}}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {{- block "styles" . }}
+      <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+        crossorigin="anonymous"
+      >
+      {{ with resources.Get "css/generic.css" | resources.Minify | resources.Fingerprint -}}
+        <link rel="stylesheet" href="{{ .Permalink }}" />
+      {{ end -}}
+      {{ if .Site.Params.usePagefind }}
+        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+      {{ end }}
+      <style>
+        /* Atkinson Hyperlegible Next for body text */
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Next';
+          font-style: normal;
+          font-weight: 400;
+          src: url('/fonts/AtkinsonHyperlegibleNext-Regular.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Next';
+          font-style: italic;
+          font-weight: 400;
+          src: url('/fonts/AtkinsonHyperlegibleNext-RegularItalic.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Next';
+          font-style: normal;
+          font-weight: 700;
+          src: url('/fonts/AtkinsonHyperlegibleNext-Bold.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Next';
+          font-style: italic;
+          font-weight: 700;
+          src: url('/fonts/AtkinsonHyperlegibleNext-BoldItalic.woff2') format('woff2');
+        }
+        /* Atkinson Hyperlegible Mono for code and other monospace text */
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Mono';
+          font-style: normal;
+          font-weight: 400;
+          src: url('/fonts/AtkinsonHyperlegibleMono-Regular.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Mono';
+          font-style: italic;
+          font-weight: 400;
+          src: url('/fonts/AtkinsonHyperlegibleMono-RegularItalic.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Mono';
+          font-style: normal;
+          font-weight: 700;
+          src: url('/fonts/AtkinsonHyperlegibleMono-Bold.woff2') format('woff2');
+        }
+        @font-face {
+          font-display: swap;
+          font-family: 'Atkinson Hyperlegible Mono';
+          font-style: italic;
+          font-weight: 700;
+          src: url('/fonts/AtkinsonHyperlegibleMono-BoldItalic.woff2') format('woff2');
+        }
+        /* Set CSS variables for Bootstrap to use the Atkinson fonts */
+        :root, [data-bs-theme="light"], [data-bs-theme="dark"] {
+          --atkinson-font: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+          --bs-font-sans-serif: 'Atkinson Hyperlegible Next', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+          --bs-font-monospace: 'Atkinson Hyperlegible Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        html {
+          font-size: 125%; /* roughly 20px if browser default is 16px */
+        }
+      </style>
+    {{ end -}}
+
+    {{- $site := .Site -}}
+    {{- $homepage := $site.GetPage "home" -}}
+    <!-- Always link to the main RSS feed -->
+    {{ with $homepage.OutputFormats.Get "rss" -}}
+      <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $site.Title }} RSS (All Articles)" href="{{ .Permalink }}" />
+    {{ end -}}
+    <!-- If in a section, link to the section's RSS feed -->
+    {{- with .Section -}}
+      {{ $sectionPage := $site.GetPage . -}}
+      {{ with $sectionPage.OutputFormats.Get "rss" -}}
+        <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $sectionPage.Title }} RSS ({{ $site.Title }})" href="{{ .Permalink }}" />
+      {{ end -}}
+    {{ end -}}
+
+    {{ block "opengraph" . -}}
+      {{ partial "opengraph.html" . -}}
+    {{ end -}}
+    {{ block "schema" . -}}
+      {{ partial "schema.html" . -}}
+    {{ end -}}
+    {{ block "canonical_url" . -}}
+      <link rel="canonical" href="{{ .Permalink }}" />
+    {{ end -}}
+    {{ block "favicon" . }}
+      {{/* Favicon links from https://realfavicongenerator.net/ - only include if file exists in static/ */}}
+      {{- if fileExists "static/favicon-96x96.png" }}
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+      {{- end }}
+      {{- if fileExists "static/favicon.svg" }}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      {{- end }}
+      {{- if fileExists "static/favicon.ico" }}
+        <link rel="shortcut icon" href="/favicon.ico" />
+      {{- end }}
+      {{- if fileExists "static/apple-touch-icon.png" }}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      {{- end }}
+      {{- if fileExists "static/site.webmanifest" }}
+        <link rel="manifest" href="/site.webmanifest" />
+      {{- end }}
+    {{ end }}
+    {{ block "pagefind_js" . }}
+      {{- if .Site.Params.usePagefind }}
+        <script src="/pagefind/pagefind-ui.js" defer></script>
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+            if (typeof PagefindUI !== 'undefined') {
+              new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+            }
+          });
+        </script>
+      {{- end }}
+    {{ end }}
+
+    {{- if .Site.Params.darkmode.enabled }}
+      {{- with resources.Get "js/darkmode.js" }}
+        <script>{{ .Content | safeJS }}</script>
+      {{- end }}
+    {{- end }}
+
+    {{ block "extra_head" . -}}{{ end -}}
+  </head>
+  <body class="p-3 d-flex flex-column align-items-center justify-content-center">
+    <a href="#main" class="visually-hidden-focusable">Skip to main content</a>
+    {{- block "header" . }}
+      <header class="page_header {{ default "container" (.Param "bootstrap_container_class") }}">
+        {{- partial (default "header.html" (.Param "header_template")) . }}
+      </header>
+    {{- end }}
+    <div class="{{ default "container" (.Param "bootstrap_container_class") }}">
+      <div class="row">
+        <main id="main" role="main"
+          class="main d-flex flex-column {{ if .Param "sidebar.enabled" }}col-lg-8{{ else }}col-12{{ end }}"
+          >
+        {{- block "precontent" . }}
+          {{ partial (default "empty.html" (.Param "precontent_template")) . }}
+        {{- end }}
+
+        {{- block "content" . }}
+        {{- end }}
+
+        {{- block "postcontent" . }}
+          {{ partial (default "empty.html" (.Param "postcontent_template")) . }}
+        {{- end }}
+        </main>
+        {{- if .Param "sidebar.enabled" }}
+        <aside class="col-lg-4">
+          {{- partial "sidebar.html" . }}
+        </aside>
+        {{- end }}
+      </div>
+    </div>
+
+    {{- block "footer" . }}
+      <footer class="page_footer border-top {{ default "container" (.Param "bootstrap_container_class") }}">
+        {{ partial (default "footer.html" (.Param "footer_template")) . }}
+        {{ block "footer_credits" . }}
+          {{- with .Param "cover" }}
+            {{- with (index site.Data.imageMeta .) }}
+              <p class="image-credit mb-0"><small>Cover image: {{ .credit | safeHTML }}</small></p>
+            {{- end }}
+          {{- end }}
+          {{- $pageBanner := .Param "banner" -}}
+          {{- $bannerImage := "" -}}
+          {{- $bannerKey := "" -}}
+          {{- if ne $pageBanner false -}}
+            {{- with $pageBanner -}}
+              {{- if reflect.IsMap . -}}
+                {{- $bannerImage = (index . "image") | default $bannerImage -}}
+                {{- $bannerKey = (index . "credit") | default $bannerKey -}}
+              {{- else -}}
+                {{- $bannerImage = . -}}
+              {{- end -}}
+            {{- end -}}
+          {{- else -}}
+            {{- $bannerImage = "" -}}
+          {{- end -}}
+          {{- if and $bannerImage (eq $bannerKey "") -}}
+            {{- $bannerKey = $bannerImage -}}
+          {{- end -}}
+          {{- with (index site.Data.imageMeta $bannerKey) }}
+            <p class="image-credit mb-0"><small>Banner image: {{ .credit | safeHTML }}</small></p>
+          {{- end }}
+          {{- $buildDate := now }}
+          <p class="build-status text-muted"><small>Site built on <time title="{{ $buildDate.Format "2006-01-02T15:04:05Z07:00" }}"
+            datetime="{{ $buildDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ $buildDate.Format "January 2, 2006" }}</time>
+            with <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a>.</small></p>
+        {{- end }}
+      </footer>
+    {{- end }}
+    {{- block "bootstrap_js" . }}
+      <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+        crossorigin="anonymous"></script>
+    {{- end }}
+    {{- block "extra_js" . }}{{- end }}
+  </body>
+</html>

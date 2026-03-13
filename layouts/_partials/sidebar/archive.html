@@ -1,0 +1,54 @@
+{{- $pages := where .Site.RegularPages "Params.outdated" "ne" true }}
+{{- $pages = where $pages "Type" "in" (slice "article" "news") }}
+{{- $archivesPage := .Site.GetPage "section" "archives" -}}
+{{- if gt (len $pages) 0 }}
+  {{- $years := slice }}
+  {{- range $pages }}
+    {{- $year := .Date.Format "2006" }}
+    {{- if not (in $years $year) }}
+      {{- $years = $years | append $year }}
+    {{- end }}
+  {{- end }}
+  {{- $years = sort $years "value" "desc" }}
+<div class="neo-sidebar-module neo-sidebar-archive">
+  <h3 class="neo-sidebar-title">{{ .Site.Params.sidebar.archive.title | default "Archive" }}</h3>
+  <ul class="list-unstyled">
+    {{- range $years }}
+      {{- $year := . }}
+      {{- $yearPages := where $pages "Date.Year" (int $year) }}
+      {{- $yearCount := len $yearPages }}
+    <li class="neo-sidebar-item">
+      <details>
+        <summary class="neo-sidebar-link">
+          {{ $year }}
+          <span class="neo-sidebar-count badge text-bg-secondary">{{ $yearCount }}</span>
+        </summary>
+        <ul class="list-unstyled ps-3">
+          {{- range (seq 1 12) }}
+            {{- $month := . }}
+            {{- $monthPages := where $yearPages "Date.Month" $month }}
+            {{- $monthCount := len $monthPages }}
+            {{- if gt $monthCount 0 }}
+              {{- $monthName := (time (printf "%s-%02d-01" $year $month)).Format "January" }}
+          <li class="neo-sidebar-item-small">
+            <a href="{{ $archivesPage.RelPermalink }}#archive-{{ $year }}-{{ printf "%02d" $month }}" class="neo-sidebar-link-small">
+              {{ $monthName }}
+              <span class="neo-sidebar-count-small badge text-bg-secondary">{{ $monthCount }}</span>
+            </a>
+          </li>
+            {{- end }}
+          {{- end }}
+        </ul>
+      </details>
+    </li>
+    {{- end }}
+  </ul>
+  <p class="mb-0 mt-2">
+    {{- with $archivesPage -}}
+      <a href="{{ .RelPermalink }}">Browse full archive</a>
+    {{- else -}}
+      <a href="{{ $archivesPage.RelPermalink }}">Browse full archive</a>
+    {{- end }}
+  </p>
+</div>
+{{- end }}

@@ -1,0 +1,26 @@
+Recent Articles:
+  other: "Neueste Artikel"
+Featured Articles:
+  other: "Ausgewählte Artikel"
+Continue reading:
+  other: "Weiterlesen"
+part_of_the_series:
+  other: "Teil der Serie: {{ .Series }}"
+no_articles_found:
+  other: "Keine Artikel gefunden."
+caution:
+  other: "Vorsicht"
+warning:
+  other: "Warnung"
+note:
+  other: "Hinweis"
+tip:
+  other: "Tipp"
+important:
+  other: "Wichtig"
+theme_light:
+  other: "Helles Design"
+theme_dark:
+  other: "Dunkles Design"
+theme_auto:
+  other: "Automatisches Design"

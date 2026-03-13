@@ -1,0 +1,26 @@
+Recent Articles:
+  other: "Artículos recientes"
+Featured Articles:
+  other: "Artículos destacados"
+Continue reading:
+  other: "Continuar leyendo"
+part_of_the_series:
+  other: "Parte de la serie: {{ .Series }}"
+no_articles_found:
+  other: "No se encontraron artículos."
+caution:
+  other: "Precaución"
+warning:
+  other: "Advertencia"
+note:
+  other: "Nota"
+tip:
+  other: "Consejo"
+important:
+  other: "Importante"
+theme_light:
+  other: "Tema claro"
+theme_dark:
+  other: "Tema oscuro"
+theme_auto:
+  other: "Tema automático"
