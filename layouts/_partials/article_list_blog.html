@@ -5,10 +5,7 @@
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>
       </h3>
       <p class="article-meta">
-        {{ .Date | time.Format "2006-01-02" -}} <!-- Adjust date format as needed -->
-        {{ with .Params.author_url -}}
-          <a href="{{ .Params.author_url }}">{{ . }}</a> <!-- Assumes author_url param exists -->
-        {{ end -}}
+        {{ .Date | time.Format "2006-01-02" -}}
       </p>
       <div class="article-excerpt">{{ .Summary}}</div>
       {{ if .Truncated }}
