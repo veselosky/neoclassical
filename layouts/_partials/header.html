@@ -4,10 +4,10 @@
 {{- if ne $banner false -}}
   {{- with $banner -}}
     {{- if reflect.IsMap . -}}
-      {{- $bannerImage = or (.Resources.Get (index . "image")) (resources.Get (index . "image")) -}}
+      {{- $bannerImage = or ($.Resources.Get (index . "image")) (resources.Get (index . "image")) -}}
       {{- $bannerAlt = (index . "alt") | default "" -}}
     {{- else -}}
-      {{- $bannerImage = or (.Resources.Get .) (resources.Get .) -}}
+      {{- $bannerImage = or ($.Resources.Get .) (resources.Get .) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -17,7 +17,7 @@
 
 <div class="neo-header mb-3">
   <div class="neo-title-row border-bottom py-2">
-    <a href="/" class="neo-site-title link-body-emphasis text-decoration-none">
+    <a href="{{ .Site.Home.RelPermalink }}" class="neo-site-title link-body-emphasis text-decoration-none">
       <span class="fs-2 fw-bold">{{ .Site.Params.brand | default .Site.Title }}</span>
     </a>
     <div class="neo-title-row-right d-flex align-items-center gap-2">
