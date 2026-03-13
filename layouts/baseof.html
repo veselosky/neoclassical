@@ -161,7 +161,7 @@
 
     {{ block "extra_head" . -}}{{ end -}}
   </head>
-  <body class="p-3 d-flex flex-column align-items-center justify-content-center" data-bs-theme="light">
+  <body class="p-3 d-flex flex-column align-items-center justify-content-center">
     <a href="#main" class="visually-hidden-focusable">Skip to main content</a>
     {{- block "header" . }}
       <header class="page_header {{ default "container" (.Param "bootstrap_container_class") }}">

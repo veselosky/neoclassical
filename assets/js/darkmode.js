@@ -59,7 +59,6 @@
    */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-bs-theme', theme);
-    document.body.setAttribute('data-bs-theme', theme);
   }
   
   /**
