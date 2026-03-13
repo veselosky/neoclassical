@@ -1,5 +1,6 @@
 {{- $pages := where .Site.RegularPages "Params.outdated" "ne" true }}
 {{- $pages = where $pages "Type" "in" (slice "article" "news") }}
+{{- $archivesPage := .Site.GetPage "section" "archives" -}}
 {{- if gt (len $pages) 0 }}
   {{- $years := slice }}
   {{- range $pages }}
@@ -30,7 +31,7 @@
             {{- if gt $monthCount 0 }}
               {{- $monthName := (time (printf "%s-%02d-01" $year $month)).Format "January" }}
           <li class="neo-sidebar-item-small">
-            <a href="/archives/#archive-{{ $year }}-{{ printf "%02d" $month }}" class="neo-sidebar-link-small">
+            <a href="{{ $archivesPage.RelPermalink }}#archive-{{ $year }}-{{ printf "%02d" $month }}" class="neo-sidebar-link-small">
               {{ $monthName }}
               <span class="neo-sidebar-count-small badge text-bg-secondary">{{ $monthCount }}</span>
             </a>
@@ -42,6 +43,12 @@
     </li>
     {{- end }}
   </ul>
-  <p class="mb-0 mt-2"><a href="/archives/">Browse full archive</a></p>
+  <p class="mb-0 mt-2">
+    {{- with $archivesPage -}}
+      <a href="{{ .RelPermalink }}">Browse full archive</a>
+    {{- else -}}
+      <a href="{{ $archivesPage.RelPermalink }}">Browse full archive</a>
+    {{- end }}
+  </p>
 </div>
 {{- end }}
