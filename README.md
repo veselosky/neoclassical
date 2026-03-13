@@ -45,16 +45,17 @@ markup:
 - Date-based archives for posts
 - RSS feeds for categories and tags as well as the main blog
 - Responsive design that looks great on all devices
-- Built with accessibility in mind
+- Built with accessibility in mind; compliant with WCAG 2.1 AA standards
 - Supports dark mode (with automatic switching based on user preference)
-- Customizable Bootstrap 5 color scheme
-- Optional banner image in the header
-- Optional cover image for posts
+- Optional banner image in the header (overridable per page/post) with image credits support
+- Optional cover image for posts, with image credits support
 - Copyright notice and image credits in the footer
 - SEO sitemap generation
 - Open Graph and Twitter Card metadata for better social media sharing
-- PageFind integration for fast client-side search
+- [Pagefind](https://pagefind.app/) integration for fast client-side search
 - Support for blockquotes with captions and citations, as well as alert/admonition types (caution, important, note, tip, warning) from GitHub Flavored Markdown (GFM)
 
 ## Future plans
 - Internationalization (i18n) support for multiple languages
+- Support multiple authors with author pages and metadata
+- Customizable Bootstrap 5 color scheme
