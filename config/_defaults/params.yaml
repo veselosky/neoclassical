@@ -1,0 +1,72 @@
+brand: My New Hugo Site
+subtitle: A fresh start with Hugo
+# author: Joey Blogs
+# copyright: "Copyright 2026 Joey Blogs. All rights reserved."
+date_format: "Jan 2, 2006"
+# Optional site banner. Add image credits in data/imageMeta.yml.
+# banner:
+#   image: img/banners/site-default.svg
+#   alt: Earth and stars over mission control
+home:
+  featured_posts:
+    limit: 6
+  recent_posts:
+    limit: 5
+# If using Pagefind for search, set this to true to load the necessary scripts and 
+# initialize the search UI. Required for the search sidebar module to work.
+# usePagefind: true
+# Sidebar configuration
+sidebar:
+  enabled: true
+  modules:
+    - name: search
+      enabled: true
+    - name: recent
+      enabled: true
+    - name: featured
+      enabled: true
+    - name: categories
+      enabled: true
+    - name: tagcloud
+      enabled: true
+    - name: archive
+      enabled: true
+    - name: social
+      enabled: true
+    - name: blogroll
+      enabled: true
+  
+  # Module-specific settings
+  # recent_posts:
+  #   limit: 5
+  # featured_posts:
+  #   title: Featured Articles
+  #   limit: 3
+  # categories:
+  #   title: Categories
+  # tagcloud:
+  #   title: Tag Cloud
+  #   min_font_size: 0.85
+  #   max_font_size: 1.8
+  # search:
+  #   title: Search
+  # archive:
+  #   title: Archive by Date
+  # social:
+  #   title: Connect
+  # blogroll:
+  #   title: Space Links
+
+# Social media links
+social:
+  # github: username
+  # twitter: username
+  # email: username@example.org
+  rss: /index.xml
+
+# Dark mode configuration. Labels can be customized.
+darkmode:
+  enabled: true
+  # label_light: Light mode
+  # label_dark: Dark mode
+  # label_auto: Auto mode
