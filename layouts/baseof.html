@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="{{ .Permalink }}" />
       {{ end -}}
       {{ if .Site.Params.usePagefind }}
-        <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+        <link href="{{ "pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
       {{ end }}
       <style>
         /* Atkinson Hyperlegible Next for body text */
@@ -35,28 +35,28 @@
           font-family: 'Atkinson Hyperlegible Next';
           font-style: normal;
           font-weight: 400;
-          src: url('/fonts/AtkinsonHyperlegibleNext-Regular.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleNext-Regular.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Next';
           font-style: italic;
           font-weight: 400;
-          src: url('/fonts/AtkinsonHyperlegibleNext-RegularItalic.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleNext-RegularItalic.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Next';
           font-style: normal;
           font-weight: 700;
-          src: url('/fonts/AtkinsonHyperlegibleNext-Bold.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleNext-Bold.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Next';
           font-style: italic;
           font-weight: 700;
-          src: url('/fonts/AtkinsonHyperlegibleNext-BoldItalic.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleNext-BoldItalic.woff2" | relURL }}') format('woff2');
         }
         /* Atkinson Hyperlegible Mono for code and other monospace text */
         @font-face {
@@ -64,37 +64,34 @@
           font-family: 'Atkinson Hyperlegible Mono';
           font-style: normal;
           font-weight: 400;
-          src: url('/fonts/AtkinsonHyperlegibleMono-Regular.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleMono-Regular.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Mono';
           font-style: italic;
           font-weight: 400;
-          src: url('/fonts/AtkinsonHyperlegibleMono-RegularItalic.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleMono-RegularItalic.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Mono';
           font-style: normal;
           font-weight: 700;
-          src: url('/fonts/AtkinsonHyperlegibleMono-Bold.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleMono-Bold.woff2" | relURL }}') format('woff2');
         }
         @font-face {
           font-display: swap;
           font-family: 'Atkinson Hyperlegible Mono';
           font-style: italic;
           font-weight: 700;
-          src: url('/fonts/AtkinsonHyperlegibleMono-BoldItalic.woff2') format('woff2');
+          src: url('{{ "fonts/AtkinsonHyperlegibleMono-BoldItalic.woff2" | relURL }}') format('woff2');
         }
         /* Set CSS variables for Bootstrap to use the Atkinson fonts */
         :root, [data-bs-theme="light"], [data-bs-theme="dark"] {
           --atkinson-font: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
           --bs-font-sans-serif: 'Atkinson Hyperlegible Next', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
           --bs-font-monospace: 'Atkinson Hyperlegible Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        }
-        html {
-          font-size: 125%; /* roughly 20px if browser default is 16px */
         }
       </style>
     {{ end -}}
@@ -125,24 +122,24 @@
     {{ block "favicon" . }}
       {{/* Favicon links from https://realfavicongenerator.net/ - only include if file exists in static/ */}}
       {{- if fileExists "static/favicon-96x96.png" }}
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/png" href="{{ "favicon-96x96.png" | relURL }}" sizes="96x96" />
       {{- end }}
       {{- if fileExists "static/favicon.svg" }}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}" />
       {{- end }}
       {{- if fileExists "static/favicon.ico" }}
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
       {{- end }}
       {{- if fileExists "static/apple-touch-icon.png" }}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}" />
       {{- end }}
       {{- if fileExists "static/site.webmanifest" }}
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="{{ "site.webmanifest" | relURL }}" />
       {{- end }}
     {{ end }}
     {{ block "pagefind_js" . }}
       {{- if .Site.Params.usePagefind }}
-        <script src="/pagefind/pagefind-ui.js" defer></script>
+        <script src="{{ "pagefind/pagefind-ui.js" | relURL }}" defer></script>
         <script>
           window.addEventListener('DOMContentLoaded', (event) => {
             if (typeof PagefindUI !== 'undefined') {
