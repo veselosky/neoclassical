@@ -94,6 +94,11 @@
           --bs-font-monospace: 'Atkinson Hyperlegible Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
       </style>
+      {{ with .Site.Params.stylesheet }}
+        {{- with resources.Get . | resources.Minify | resources.Fingerprint -}}
+          <link rel="stylesheet" href="{{ .Permalink }}" />
+        {{- end -}}
+      {{ end -}}
     {{ end -}}
 
     {{- $site := .Site -}}
