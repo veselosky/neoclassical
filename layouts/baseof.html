@@ -23,7 +23,7 @@
         crossorigin="anonymous"
       >
       {{ with resources.Get "css/generic.css" | resources.Minify | resources.Fingerprint -}}
-        <link rel="stylesheet" href="{{ .Permalink }}" />
+        <link rel="stylesheet" href="{{ .RelPermalink }}" />
       {{ end -}}
       {{ if .Site.Params.usePagefind }}
         <link href="{{ "pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
@@ -96,7 +96,7 @@
       </style>
       {{ with .Site.Params.stylesheet }}
         {{- with resources.Get . | resources.Minify | resources.Fingerprint -}}
-          <link rel="stylesheet" href="{{ .Permalink }}" />
+          <link rel="stylesheet" href="{{ .RelPermalink }}" />
         {{- end -}}
       {{ end -}}
     {{ end -}}
