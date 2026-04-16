@@ -1,20 +1,12 @@
-{{ define "precontent" }}
-  <div class="precontent">
-    {{- partial "article_text.html" . }}
-  </div>
-{{ end }}
-
 {{ define "content" }}
-  {{- $pages := where .Site.RegularPages "Params.outdated" "ne" true -}}
-  {{- $pages = where $pages "Type" "in" (slice "article" "news") -}}
+  {{- $pages := where .Site.RegularPages "Type" "in" (slice "article" "news") -}}
   {{- $pages = sort $pages "Date" "desc" -}}
 
   {{- if eq (len $pages) 0 }}
     <p>{{ i18n "no_articles_found" }}</p>
   {{- else }}
     <section class="neo-archives w-100" aria-labelledby="archives-title">
-      <h2 id="archives-title" class="border-bottom pb-2">{{ .Title }}</h2>
-
+      <h1 id="archives-title" class="border-bottom pb-2">{{ .Title }}</h1>
       {{- $years := slice -}}
       {{- range $pages -}}
         {{- $year := .Date.Format "2006" -}}
