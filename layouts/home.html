@@ -5,19 +5,23 @@
   {{- $featLimit := default 6 .Site.Params.home.featured_posts.limit -}}
   {{- if gt $featLimit 0 }}
     {{- $featTitleKey := default "Featured Articles" .Site.Params.home.featured_posts.title -}}
-    <h2 class="border-bottom">{{ i18n $featTitleKey }}</h2>
     {{- $featuredAll := (where (where .Site.RegularPages "Type" "article") "Params.featured" true).ByDate.Reverse -}}
     {{- $featured := first $featLimit $featuredAll -}}
-    {{- partial "article_list_album.html" $featured -}}
+    {{ with $featured }}  
+      <h2 class="border-bottom">{{ i18n $featTitleKey }}</h2>
+      {{- partial "article_list_album.html" . -}}
+    {{ end }}
   {{- end }}
 
   {{- /* Recent Articles section (exclude featured items) */ -}}
   {{- $recentLimit := default 6 .Site.Params.home.recent_posts.limit -}}
   {{- if gt $recentLimit 0 }}
     {{- $recentTitleKey := default "Recent Articles" .Site.Params.home.recent_posts.title -}}
-    <h2 class="border-bottom">{{ i18n $recentTitleKey }}</h2>
-    {{- $nonFeatured := where $all "Params.featured" "ne" true -}}
+    {{- $nonFeatured := where (where $all "Params.outdated" "ne" true) "Params.featured" "ne" true -}}
     {{- $recentPages := first $recentLimit $nonFeatured -}}
-    {{- partial "article_list_blog.html" $recentPages -}}
+    {{ with $recentPages }}
+      <h2 class="border-bottom">{{ i18n $recentTitleKey }}</h2>
+      {{- partial "article_list_blog.html" . -}}
+    {{ end }}
   {{- end }}
 {{- end }}

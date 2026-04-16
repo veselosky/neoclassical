@@ -1,6 +1,5 @@
-{{- $pages := where .Site.RegularPages "Params.outdated" "ne" true }}
-{{- $pages = where $pages "Type" "in" (slice "article" "news") }}
-{{- $archivesPage := .Site.GetPage "section" "archives" -}}
+{{- $pages := where .Site.RegularPages "Type" "in" (slice "article" "news") }}
+{{- $archivesPage := .Site.GetPage "/archives" -}}
 {{- if gt (len $pages) 0 }}
   {{- $years := slice }}
   {{- range $pages }}
@@ -44,11 +43,7 @@
     {{- end }}
   </ul>
   <p class="mb-0 mt-2">
-    {{- with $archivesPage -}}
-      <a href="{{ .RelPermalink }}">Browse full archive</a>
-    {{- else -}}
-      <a href="{{ $archivesPage.RelPermalink }}">Browse full archive</a>
-    {{- end }}
+    <a href="{{ $archivesPage.RelPermalink }}">Browse full archive</a>
   </p>
 </div>
 {{- end }}
